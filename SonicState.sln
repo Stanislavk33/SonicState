@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SonicState.CloudStorage", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SonicState.Services", "SonicState.Services\SonicState.Services.csproj", "{9959EE97-857E-4C24-AA6E-2037F186E3F6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SonicState.Data", "SonicState.Data\SonicState.Data.csproj", "{367CD1DE-8C11-42A4-B036-7BCCAD9351D2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SonicState.Entities", "SonicState.Entities\SonicState.Entities.csproj", "{FD7D9BEC-5A1C-4B78-939C-3F7B60C4E4F3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{9959EE97-857E-4C24-AA6E-2037F186E3F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9959EE97-857E-4C24-AA6E-2037F186E3F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9959EE97-857E-4C24-AA6E-2037F186E3F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{367CD1DE-8C11-42A4-B036-7BCCAD9351D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{367CD1DE-8C11-42A4-B036-7BCCAD9351D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{367CD1DE-8C11-42A4-B036-7BCCAD9351D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{367CD1DE-8C11-42A4-B036-7BCCAD9351D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD7D9BEC-5A1C-4B78-939C-3F7B60C4E4F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD7D9BEC-5A1C-4B78-939C-3F7B60C4E4F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD7D9BEC-5A1C-4B78-939C-3F7B60C4E4F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD7D9BEC-5A1C-4B78-939C-3F7B60C4E4F3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
