@@ -8,9 +8,5 @@ namespace SonicState.Data.Configurations
 {
     public class AudioConfiguration
     {
-        public void Configure(EntityTypeBuilder<Audio> builder)
-        {
-
-        }
     }
 }
