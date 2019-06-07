@@ -9,8 +9,8 @@ using SonicState.Data;
 namespace SonicState.Data.Migrations
 {
     [DbContext(typeof(SonicStateDbContext))]
-    [Migration("20190606084328_Initial")]
-    partial class Initial
+    [Migration("20190606144156_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -28,13 +28,41 @@ namespace SonicState.Data.Migrations
 
                     b.Property<double>("Bpm");
 
-                    b.Property<int>("KeyId");
+                    b.Property<int>("ChordSequenceId");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Key");
+
+                    b.Property<string>("Name")
+                        .IsRequired();
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ChordSequenceId");
+
                     b.ToTable("Audios");
+                });
+
+            modelBuilder.Entity("SonicState.Entities.ChordSequence", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Chord");
+
+                    b.Property<string>("Time");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ChordSequences");
+                });
+
+            modelBuilder.Entity("SonicState.Entities.Audio", b =>
+                {
+                    b.HasOne("SonicState.Entities.ChordSequence", "ChordSequence")
+                        .WithMany("Audios")
+                        .HasForeignKey("ChordSequenceId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }
