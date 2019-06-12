@@ -7,6 +7,8 @@ using Microsoft.Extensions.Configuration.Json;
 using Microsoft.Extensions.DependencyInjection;
 using SonicState.CloudStorage;
 using SonicState.Data;
+using SonicState.Services;
+using SonicState.Web;
 
 namespace SonicState
 {
@@ -25,9 +27,9 @@ namespace SonicState
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
          
             services.AddSingleton<GoogleCloud, GoogleCloud>();
-            services.AddDbContext<SonicStateDbContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:SonicStateDB"]));
-
-           
+            services.AddCustomServices(Configuration);
+            services.AddDbConnection(Configuration["ConnectionStrings:SonicStateDB"]);
+            
 
         }
 

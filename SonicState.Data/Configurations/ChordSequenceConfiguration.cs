@@ -5,13 +5,11 @@ using SonicState.Entities;
 
 namespace SonicState.Data.Configurations
 {
-    public class ChordSequenceConfiguration : IEntityTypeConfiguration<ChordSequence>
+    public class ChordSequenceConfiguration : IEntityTypeConfiguration<ChordUnit>
     {
-        public void Configure(EntityTypeBuilder<ChordSequence> builder)
+        public void Configure(EntityTypeBuilder<ChordUnit> builder)
         {
-            builder.HasMany(c => c.Audios)
-                .WithOne(a => a.ChordSequence)
-                .HasForeignKey(a => a.ChordSequenceId);
+            
         }
     }
 }

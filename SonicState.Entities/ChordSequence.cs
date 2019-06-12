@@ -4,19 +4,19 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SonicState.Entities
 {
-    public class ChordSequence : BaseModel<int>
+    public class ChordUnit : BaseModel<int>
     {
-        public ChordSequence()
+        public ChordUnit()
         {
-            this.Audios = new List<Audio>();
+            
         }
 
         public string Time { get; set; }
 
         public string Chord { get; set; }
         
-        [Required]
-        public virtual ICollection<Audio> Audios { get; set; }
+        public int AudioId { get; set; }
+        public virtual Audio Audio { get; set; }
 
     }
 }

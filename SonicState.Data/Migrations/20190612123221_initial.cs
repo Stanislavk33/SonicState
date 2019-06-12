@@ -8,20 +8,6 @@ namespace SonicState.Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "ChordSequences",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Time = table.Column<string>(nullable: true),
-                    Chord = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ChordSequences", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Audios",
                 columns: table => new
                 {
@@ -29,33 +15,47 @@ namespace SonicState.Data.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: false),
                     Bpm = table.Column<double>(nullable: false),
-                    Key = table.Column<string>(nullable: true),
-                    ChordSequenceId = table.Column<int>(nullable: false)
+                    Key = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Audios", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ChordSequences",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Time = table.Column<string>(nullable: true),
+                    Chord = table.Column<string>(nullable: true),
+                    AudioId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ChordSequences", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Audios_ChordSequences_ChordSequenceId",
-                        column: x => x.ChordSequenceId,
-                        principalTable: "ChordSequences",
+                        name: "FK_ChordSequences_Audios_AudioId",
+                        column: x => x.AudioId,
+                        principalTable: "Audios",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Audios_ChordSequenceId",
-                table: "Audios",
-                column: "ChordSequenceId");
+                name: "IX_ChordSequences_AudioId",
+                table: "ChordSequences",
+                column: "AudioId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Audios");
+                name: "ChordSequences");
 
             migrationBuilder.DropTable(
-                name: "ChordSequences");
+                name: "Audios");
         }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using SonicState.Entities.Common;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SonicState.Entities
 {
@@ -14,9 +16,8 @@ namespace SonicState.Entities
 
         public string Key { get; set; }
 
-        public ChordSequence ChordSequence { get; set; }
+        public virtual ICollection<ChordUnit> ChordUnit { get; set; }
 
-        public int ChordSequenceId { get; set; }
-
+    
     }
 }

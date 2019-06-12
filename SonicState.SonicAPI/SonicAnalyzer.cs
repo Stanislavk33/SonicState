@@ -27,6 +27,7 @@ namespace SonicState.SonicAPI
         {
             return this.chordsAnalyzer.Analyzee(fileUrl);
         }
+
         public double AnalyzeTempo(string fileUrl)
         {
             return this.tempoAnalyzer.Analyze(fileUrl);

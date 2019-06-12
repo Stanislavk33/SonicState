@@ -9,7 +9,7 @@ using SonicState.Data;
 namespace SonicState.Data.Migrations
 {
     [DbContext(typeof(SonicStateDbContext))]
-    [Migration("20190606144156_initial")]
+    [Migration("20190612123221_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -28,8 +28,6 @@ namespace SonicState.Data.Migrations
 
                     b.Property<double>("Bpm");
 
-                    b.Property<int>("ChordSequenceId");
-
                     b.Property<string>("Key");
 
                     b.Property<string>("Name")
@@ -37,16 +35,16 @@ namespace SonicState.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ChordSequenceId");
-
                     b.ToTable("Audios");
                 });
 
-            modelBuilder.Entity("SonicState.Entities.ChordSequence", b =>
+            modelBuilder.Entity("SonicState.Entities.ChordUnit", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AudioId");
 
                     b.Property<string>("Chord");
 
@@ -54,14 +52,16 @@ namespace SonicState.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AudioId");
+
                     b.ToTable("ChordSequences");
                 });
 
-            modelBuilder.Entity("SonicState.Entities.Audio", b =>
+            modelBuilder.Entity("SonicState.Entities.ChordUnit", b =>
                 {
-                    b.HasOne("SonicState.Entities.ChordSequence", "ChordSequence")
-                        .WithMany("Audios")
-                        .HasForeignKey("ChordSequenceId")
+                    b.HasOne("SonicState.Entities.Audio", "Audio")
+                        .WithMany("ChordUnit")
+                        .HasForeignKey("AudioId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

@@ -14,7 +14,7 @@ namespace SonicState.Data
 
         public DbSet<Audio> Audios { get; set; }
 
-        public DbSet<ChordSequence> ChordSequences { get; set; }
+        public DbSet<ChordUnit> ChordSequences { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder builder)
         {
