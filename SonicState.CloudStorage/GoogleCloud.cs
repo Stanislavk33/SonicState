@@ -5,10 +5,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using SonicState.Contracts;
 
 namespace SonicState.CloudStorage
 {
-    public class GoogleCloud
+    public class GoogleCloud : FileStorage
     {
         private const string bucketName = "sonicstate";
 
@@ -26,7 +27,6 @@ namespace SonicState.CloudStorage
             storageClient.UploadObject(bucketName, fileName, null, fileStream);
             MakePublic(bucketName, fileName);
         }
-
         public async Task Upload(IFormFile file)
         {
             await storageClient.UploadObjectAsync(bucketName, file.FileName, null, file.OpenReadStream());

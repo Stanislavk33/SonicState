@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SonicState.CloudStorage;
+using SonicState.Contracts;
 using SonicState.Contracts.Repositories;
 using SonicState.Contracts.Services;
 using SonicState.Repositories;
@@ -19,6 +20,7 @@ namespace SonicState.Web
         {
             services.AddScoped<IAudioRepository, AudioRepository>();
             services.AddScoped<IAudioService, AudioService>();
+            services.AddScoped<FileStorage, GoogleCloud>();
 
             services.AddAutoMapper();
 
