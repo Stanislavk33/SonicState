@@ -23,7 +23,6 @@ namespace SonicState.Services
         public async Task AddAsync(AudioUpload audio)
         {
             var newAudio = mapper.Map<Audio>(audio);
-            newAudio.Name = audio.Name;
 
             await audioRepository.Add(newAudio);
             await audioRepository.SaveChanges();
