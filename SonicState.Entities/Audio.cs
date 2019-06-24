@@ -16,7 +16,7 @@ namespace SonicState.Entities
 
         public string Key { get; set; }
 
-        public virtual ICollection<ChordUnit> ChordUnit { get; set; }
+        public virtual ICollection<ChordUnit> ChordUnits { get; set; }
 
     
     }

@@ -11,7 +11,7 @@ namespace SonicState.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<Audio> builder)
         {
-            builder.HasMany(c => c.ChordUnit)
+            builder.HasMany(c => c.ChordUnits)
                    .WithOne(a => a.Audio)
                    .HasForeignKey(c => c.AudioId);
         }

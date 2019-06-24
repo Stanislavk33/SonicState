@@ -1,13 +1,10 @@
-﻿using SonicState.Models.Binding_Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 
 namespace SonicState.Contracts.Services
 {
     public interface IAudioService
     {
-        Task AddAsync(AudioUpload audio);
+        Task AddAsync(IFormFile audio);
     }
 }
