@@ -12,6 +12,7 @@ namespace SonicState.CloudStorage
     public class GoogleCloud : FileStorage
     {
         private const string bucketName = "sonicstate";
+        private readonly string defaultURL = "https://storage.googleapis.com/sonicstate/";
 
         private readonly StorageClient storageClient;
 
@@ -31,6 +32,11 @@ namespace SonicState.CloudStorage
         {
             await storageClient.UploadObjectAsync(bucketName, file.FileName, null, file.OpenReadStream());
             MakePublic(bucketName, file.FileName);
+        }
+        public async Task<string> GenerateURL(string objectName)
+        {
+            // var storageObject = await storageClient.GetObjectAsync(bucketName, objectName);
+            return defaultURL + objectName;
         }
         private void MakePublic(string bucketName, string objectName)
         {

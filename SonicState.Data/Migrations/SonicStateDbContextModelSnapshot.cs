@@ -36,7 +36,7 @@ namespace SonicState.Data.Migrations
                     b.ToTable("Audios");
                 });
 
-            modelBuilder.Entity("SonicState.Entities.ChordUnit", b =>
+            modelBuilder.Entity("SonicState.Entities.ChordUnits", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -55,10 +55,10 @@ namespace SonicState.Data.Migrations
                     b.ToTable("ChordSequences");
                 });
 
-            modelBuilder.Entity("SonicState.Entities.ChordUnit", b =>
+            modelBuilder.Entity("SonicState.Entities.ChordUnits", b =>
                 {
                     b.HasOne("SonicState.Entities.Audio", "Audio")
-                        .WithMany("ChordUnit")
+                        .WithMany("ChordUnits")
                         .HasForeignKey("AudioId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

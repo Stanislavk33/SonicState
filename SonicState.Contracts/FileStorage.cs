@@ -1,7 +1,4 @@
 ﻿using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace SonicState.Contracts
@@ -9,5 +6,7 @@ namespace SonicState.Contracts
     public interface FileStorage
     {
         Task Upload(IFormFile file);
+
+        Task<string> GenerateURL(string objectName);
     }
 }

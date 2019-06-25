@@ -11,7 +11,7 @@ namespace SonicState.Entities
             
         }
 
-        public string Time { get; set; }
+        public double Time { get; set; }
 
         public string Chord { get; set; }
         
