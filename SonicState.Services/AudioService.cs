@@ -21,9 +21,6 @@ namespace SonicState.Services
         private readonly AudioAnalyzer audioAnalyzer;
         private readonly FileStorage fileStorage;
         private readonly IServiceProvider provider;
-       
-
-
         public AudioService
             (IAudioRepository audioRepository, AudioAnalyzer audioAnalyzer, FileStorage fileStorage, IServiceProvider provider)
         {
@@ -36,10 +33,14 @@ namespace SonicState.Services
 
         public async Task AddAsync(IFormFile audio)
         {
+            //TODO: Generate guid and place it after the audio.Filename
+            //
+
             await fileStorage.Upload(audio);
-            AddAnalyzedObjectToDb(audio.FileName);
+            AddAnalyzedAudioToDb(audio.FileName);
         }
-        private async Task AddAnalyzedObjectToDb(string audioName)
+
+        private async Task AddAnalyzedAudioToDb(string audioName)
         {
             Task.Factory.StartNew(async () =>
             {
@@ -86,6 +87,12 @@ namespace SonicState.Services
             }
 
             return chordCollection;
+        }
+        private string GenerateUniqueName(string objectName)
+        {
+            var guid = Guid.NewGuid().ToString();
+            var uniqueName = objectName + guid;
+            return uniqueName;
         }
     }
 }
