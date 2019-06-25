@@ -17,6 +17,7 @@
     <ProjectReference Include="..\SonicState.Data\SonicState.Data.csproj" />
     <ProjectReference Include="..\SonicState.Models\SonicState.Models.csproj" />
     <ProjectReference Include="..\SonicState.Services\SonicState.Services.csproj" />
+    <ProjectReference Include="..\SonicState.SonicAPI\SonicState.SonicAPI.csproj" />
   </ItemGroup>
 
   <ItemGroup>

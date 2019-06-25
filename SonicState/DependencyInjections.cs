@@ -1,16 +1,14 @@
 ﻿using AutoMapper;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using SonicState.CloudStorage;
 using SonicState.Contracts;
 using SonicState.Contracts.Repositories;
 using SonicState.Contracts.Services;
 using SonicState.Repositories;
 using SonicState.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using SonicState.SonicAPI;
 
 namespace SonicState.Web
 {
@@ -18,10 +16,10 @@ namespace SonicState.Web
     {
         public static void AddCustomServices(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddScoped<IAudioRepository, AudioRepository>();
+            services.AddTransient<IAudioRepository, AudioRepository>();
             services.AddScoped<IAudioService, AudioService>();
             services.AddScoped<FileStorage, GoogleCloud>();
-
+            services.AddScoped<AudioAnalyzer, SonicAnalyzer>();
             services.AddAutoMapper();
 
         }
