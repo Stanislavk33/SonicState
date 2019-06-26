@@ -14,6 +14,9 @@ namespace SonicState.Data.Configurations
             builder.HasMany(c => c.ChordUnits)
                    .WithOne(a => a.Audio)
                    .HasForeignKey(c => c.AudioId);
+
+            builder.HasKey(a => a.Id);
+            builder.Property(a => a.Id).ValueGeneratedNever();
         }
     }
 }

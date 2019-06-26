@@ -11,8 +11,7 @@ namespace SonicState.Data.Migrations
                 name: "Audios",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Id = table.Column<string>(nullable: false),
                     Name = table.Column<string>(nullable: false),
                     Bpm = table.Column<double>(nullable: false),
                     Key = table.Column<string>(nullable: true)
@@ -28,9 +27,9 @@ namespace SonicState.Data.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Time = table.Column<string>(nullable: true),
+                    Time = table.Column<double>(nullable: false),
                     Chord = table.Column<string>(nullable: true),
-                    AudioId = table.Column<int>(nullable: false)
+                    AudioId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -40,7 +39,7 @@ namespace SonicState.Data.Migrations
                         column: x => x.AudioId,
                         principalTable: "Audios",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(

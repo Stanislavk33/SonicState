@@ -9,7 +9,7 @@ using SonicState.Data;
 namespace SonicState.Data.Migrations
 {
     [DbContext(typeof(SonicStateDbContext))]
-    [Migration("20190612123221_initial")]
+    [Migration("20190626114658_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -22,9 +22,8 @@ namespace SonicState.Data.Migrations
 
             modelBuilder.Entity("SonicState.Entities.Audio", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<double>("Bpm");
 
@@ -38,17 +37,17 @@ namespace SonicState.Data.Migrations
                     b.ToTable("Audios");
                 });
 
-            modelBuilder.Entity("SonicState.Entities.ChordUnits", b =>
+            modelBuilder.Entity("SonicState.Entities.ChordUnit", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("AudioId");
+                    b.Property<string>("AudioId");
 
                     b.Property<string>("Chord");
 
-                    b.Property<string>("Time");
+                    b.Property<double>("Time");
 
                     b.HasKey("Id");
 
@@ -57,12 +56,11 @@ namespace SonicState.Data.Migrations
                     b.ToTable("ChordSequences");
                 });
 
-            modelBuilder.Entity("SonicState.Entities.ChordUnits", b =>
+            modelBuilder.Entity("SonicState.Entities.ChordUnit", b =>
                 {
                     b.HasOne("SonicState.Entities.Audio", "Audio")
                         .WithMany("ChordUnits")
-                        .HasForeignKey("AudioId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("AudioId");
                 });
 #pragma warning restore 612, 618
         }
