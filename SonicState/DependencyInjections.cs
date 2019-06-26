@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using SonicState.BackgroundServices;
 using SonicState.CloudStorage;
 using SonicState.Contracts;
 using SonicState.Contracts.Repositories;
@@ -20,6 +21,8 @@ namespace SonicState.Web
             services.AddScoped<IAudioService, AudioService>();
             services.AddScoped<FileStorage, GoogleCloud>();
             services.AddScoped<AudioAnalyzer, SonicAnalyzer>();
+            services.AddHostedService<QueuedHostedService>();
+            services.AddSingleton<IBackgroundTaskQueue, BackgroundTaskQueue>();
             services.AddAutoMapper();
 
         }

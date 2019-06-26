@@ -5,11 +5,9 @@ using SonicState.Contracts.Repositories;
 using SonicState.Contracts.Services;
 using SonicState.Entities;
 using SonicState.Models;
-using SonicState.SonicAPI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace SonicState.Services
@@ -21,48 +19,47 @@ namespace SonicState.Services
         private readonly AudioAnalyzer audioAnalyzer;
         private readonly FileStorage fileStorage;
         private readonly IServiceProvider provider;
+        private readonly IBackgroundTaskQueue queue;
+       
         public AudioService
-            (IAudioRepository audioRepository, AudioAnalyzer audioAnalyzer, FileStorage fileStorage, IServiceProvider provider)
+            (IAudioRepository audioRepository, AudioAnalyzer audioAnalyzer, FileStorage fileStorage, IServiceProvider provider,IBackgroundTaskQueue queue)
         {
             this.audioRepository = audioRepository;
             this.audioAnalyzer = audioAnalyzer;
             this.fileStorage = fileStorage;
-
+            this.queue = queue; 
             this.provider = provider;
         }
 
         public async Task AddAsync(IFormFile audio)
         {
-            //TODO: Generate guid and place it after the audio.Filename
-            //
-
-            await fileStorage.Upload(audio);
-            AddAnalyzedAudioToDb(audio.FileName);
+            var guid= GenerateGuid();
+            await fileStorage.Upload(audio, guid);
+            AddAnalyzedAudioToDb(audio.FileName, guid);
         }
-
-        private async Task AddAnalyzedAudioToDb(string audioName)
+        private async Task AddAnalyzedAudioToDb(string audioName, string guid)
         {
-            Task.Factory.StartNew(async () =>
+            queue.QueueBackgroundWorkItem(async token =>
             {
-                Thread.CurrentThread.IsBackground = true;
                 var serviceScopeFactory = provider.GetRequiredService<IServiceScopeFactory>();
                 using (var scope = serviceScopeFactory.CreateScope())
                 {
                     var Dbcontext = await ProvideAudioRepository(scope);
                     var analysis = await Analyze(await GetStorageURL(audioName));
-                    var audioEntity = await GenerateAudioEntity(analysis,audioName);
+                    var audioEntity = await GenerateAudioEntity(analysis, audioName, guid);
                     await Dbcontext.Add(audioEntity);
                     await Dbcontext.SaveChanges();
                 }
-            }).Start();
+            });
         }
         private async Task<IAudioRepository> ProvideAudioRepository(IServiceScope scope)
         {
             return scope.ServiceProvider.GetService<IAudioRepository>();
         }
-        private async Task<Audio> GenerateAudioEntity (AudioAnalysis audioAnalysis, string audioName)
+        private async Task<Audio> GenerateAudioEntity (AudioAnalysis audioAnalysis, string audioName, string guid)
         {
             var audio = new Audio();
+            audio.Id = guid;
             audio.Name = audioName;
             audio.Key = audioAnalysis.Key;
             audio.Bpm = audioAnalysis.Tempo;
@@ -88,11 +85,10 @@ namespace SonicState.Services
 
             return chordCollection;
         }
-        private string GenerateUniqueName(string objectName)
+        private string GenerateGuid()
         {
             var guid = Guid.NewGuid().ToString();
-            var uniqueName = objectName + guid;
-            return uniqueName;
+            return guid;
         }
     }
 }

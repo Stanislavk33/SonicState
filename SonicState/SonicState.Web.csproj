@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SonicState.BackgroundService\SonicState.BackgroundServices.csproj" />
     <ProjectReference Include="..\SonicState.CloudStorage\SonicState.CloudStorage.csproj" />
     <ProjectReference Include="..\SonicState.Data\SonicState.Data.csproj" />
     <ProjectReference Include="..\SonicState.Models\SonicState.Models.csproj" />
