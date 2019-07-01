@@ -5,9 +5,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SonicState.Entities
 {
-    public class Audio : BaseModel<int>
+    public class Audio : BaseModel<string>
     {
-        public Audio() { }
+        public Audio()
+        {
+            ChordUnits = new List<ChordUnit>();
+        }
 
         [Required]
         public string Name { get; set; }
@@ -18,6 +21,8 @@ namespace SonicState.Entities
 
         public virtual ICollection<ChordUnit> ChordUnits { get; set; }
 
-    
+        public string GetStorageName() => Name + Id; 
+
+        
     }
 }

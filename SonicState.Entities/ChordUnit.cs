@@ -15,7 +15,7 @@ namespace SonicState.Entities
 
         public string Chord { get; set; }
         
-        public int AudioId { get; set; }
+        public string AudioId { get; set; }
         public virtual Audio Audio { get; set; }
 
     }
