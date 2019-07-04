@@ -21,12 +21,9 @@ namespace SonicState.Data
             base.OnConfiguring(builder);
            
         }
-
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-
-           // builder.ApplyConfiguration(new AudioConfiguration());
         }
     }
 }

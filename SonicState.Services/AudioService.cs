@@ -5,6 +5,7 @@ using SonicState.Contracts.Repositories;
 using SonicState.Contracts.Services;
 using SonicState.Entities;
 using SonicState.Models;
+using SonicState.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,6 +37,10 @@ namespace SonicState.Services
             var guid= GenerateGuid();
             await fileStorage.Upload(audio, guid);
             AddAnalyzedAudioToDb(audio.FileName, guid);
+        }
+        public IEnumerable<AudioDetails> GetAll()
+        {
+            return audioRepository.GetAll();
         }
         private async Task AddAnalyzedAudioToDb(string audioName, string guid)
         {

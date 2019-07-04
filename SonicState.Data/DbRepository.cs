@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using SonicState.Contracts.Repositories;
 using System;
 using System.Collections.Generic;
@@ -12,11 +13,13 @@ namespace SonicState.Data
     {
         private readonly SonicStateDbContext context;
         protected DbSet<TEntity> set;
+        protected readonly IMapper mapper;
 
-        public DbRepository(SonicStateDbContext context)
+        public DbRepository(SonicStateDbContext context, IMapper mapper)
         {
             this.context = context;
             this.set = this.context.Set<TEntity>();
+            this.mapper = mapper;
         }
 
         public Task Add(TEntity entity)
@@ -26,6 +29,7 @@ namespace SonicState.Data
 
         public IEnumerable<TEntity> All()
         {
+
             return this.set;
         }
 
