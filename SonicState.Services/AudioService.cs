@@ -95,5 +95,7 @@ namespace SonicState.Services
             var guid = Guid.NewGuid().ToString();
             return guid;
         }
+
+
     }
 }

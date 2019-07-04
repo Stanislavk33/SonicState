@@ -14,14 +14,10 @@ namespace SonicState.Entities
 
         [Required]
         public string Name { get; set; }
-
         public double Bpm { get; set; }
-
         public string Key { get; set; }
-
         public virtual ICollection<ChordUnit> ChordUnits { get; set; }
-
-        public string GetStorageName() => Name + Id; 
+        public string StorageName => Name + Id; 
 
         
     }

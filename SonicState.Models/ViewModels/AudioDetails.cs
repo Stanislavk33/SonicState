@@ -10,5 +10,6 @@ namespace SonicState.Models.ViewModels
         public string Name { get; set; }
         public double Bpm { get; set; }
         public string Key { get; set; }
+        public string StorageName { get; set; }
     }
 }

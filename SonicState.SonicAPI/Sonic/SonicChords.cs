@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace SonicState.SonicAPI.Sonic
@@ -15,8 +16,12 @@ namespace SonicState.SonicAPI.Sonic
         {
             var result = base.Analyze<ChordsAPIResponse>("analyze/chords", fileUrl);
             var chordList = result.chords_result.chords;
-            return chordList.Select(c => new { c.time, c.chord }).ToDictionary(x => x.time, x => x.chord);
+            return chordList.Select(c => new { c.time, c.chord }).ToDictionary(x => RoundTime(x.time), x => x.chord);
 
+        }
+        private double RoundTime(double time)
+        {
+            return Math.Round(time, 2);
         }
     }
 
@@ -42,5 +47,6 @@ namespace SonicState.SonicAPI.Sonic
         public int index { get; set; }
         public double time { get; set; }
         public string chord { get; set; }
+
     }
 }
