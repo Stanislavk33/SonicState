@@ -7,6 +7,7 @@ namespace SonicState.Models.ViewModels
 {
     public class AudioDetails
     {
+        public string Id { get; set; }
         public string Name { get; set; }
         public double Bpm { get; set; }
         public string Key { get; set; }

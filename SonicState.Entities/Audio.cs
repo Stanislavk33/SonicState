@@ -11,14 +11,11 @@ namespace SonicState.Entities
         {
             ChordUnits = new List<ChordUnit>();
         }
-
         [Required]
         public string Name { get; set; }
         public double Bpm { get; set; }
         public string Key { get; set; }
         public virtual ICollection<ChordUnit> ChordUnits { get; set; }
-        public string StorageName => Name + Id; 
-
-        
+        public string StorageName => Id + Name; 
     }
 }

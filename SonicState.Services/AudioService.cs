@@ -34,7 +34,7 @@ namespace SonicState.Services
 
         public async Task AddAsync(IFormFile audio)
         {
-            var guid= GenerateGuid();
+            var guid = GenerateGuid();
             await fileStorage.Upload(audio, guid);
             AddAnalyzedAudioToDb(audio.FileName, guid);
         }
@@ -50,7 +50,7 @@ namespace SonicState.Services
                 using (var scope = serviceScopeFactory.CreateScope())
                 {
                     var Dbcontext = await ProvideAudioRepository(scope);
-                    var analysis = await Analyze(await GetStorageURL(audioName));
+                    var analysis = await Analyze(await GetStorageURL(guid + audioName));
                     var audioEntity = await GenerateAudioEntity(analysis, audioName, guid);
                     await Dbcontext.Add(audioEntity);
                     await Dbcontext.SaveChanges();
@@ -83,19 +83,17 @@ namespace SonicState.Services
         {
             var chordCollection = new List<ChordUnit>();
 
-            foreach (KeyValuePair<double, string> pair in chords.OrderBy(c=> c.Key))
+            foreach (KeyValuePair<double, string> pair in chords)
             {
                 chordCollection.Add(new ChordUnit { Time = pair.Key, Chord = pair.Value });
             }
 
-            return chordCollection;
+            return chordCollection.OrderBy(c=> c.Time).ToList();
         }
         private string GenerateGuid()
         {
             var guid = Guid.NewGuid().ToString();
             return guid;
         }
-
-
     }
 }

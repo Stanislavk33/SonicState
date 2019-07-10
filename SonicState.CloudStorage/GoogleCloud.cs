@@ -30,8 +30,8 @@ namespace SonicState.CloudStorage
         }
         public async Task Upload(IFormFile file, string guid)
         {
-            await storageClient.UploadObjectAsync(bucketName, file.FileName + guid, null, file.OpenReadStream());
-            MakePublic(bucketName, file.FileName + guid);
+            await storageClient.UploadObjectAsync(bucketName,guid + file.FileName , null, file.OpenReadStream());
+            MakePublic(bucketName, guid + file.FileName);
         }
         public async Task<string> GenerateURL(string objectName)
         {
