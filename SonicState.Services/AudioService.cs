@@ -15,85 +15,66 @@ namespace SonicState.Services
 {
     public class AudioService : IAudioService
     {
-
         private readonly IAudioRepository audioRepository;
         private readonly AudioAnalyzer audioAnalyzer;
         private readonly FileStorage fileStorage;
         private readonly IServiceProvider provider;
         private readonly IBackgroundTaskQueue queue;
-       
+
         public AudioService
-            (IAudioRepository audioRepository, AudioAnalyzer audioAnalyzer, FileStorage fileStorage, IServiceProvider provider,IBackgroundTaskQueue queue)
+            (IAudioRepository audioRepository, AudioAnalyzer audioAnalyzer, FileStorage fileStorage, IServiceProvider provider, IBackgroundTaskQueue queue)
         {
             this.audioRepository = audioRepository;
             this.audioAnalyzer = audioAnalyzer;
             this.fileStorage = fileStorage;
-            this.queue = queue; 
+            this.queue = queue;
             this.provider = provider;
         }
 
         public async Task AddAsync(IFormFile audio)
         {
             var guid = GenerateGuid();
-            await fileStorage.Upload(audio, guid);
-            AddAnalyzedAudioToDb(audio.FileName, guid);
+            var storageName = guid + audio.FileName;
+
+            await fileStorage.Upload(audio, storageName);
+            AddAnalyzedAudioToDb(audio.FileName, guid, storageName);
         }
-        public IEnumerable<AudioDetails> GetAll()
-        {
-            return audioRepository.GetAll();
-        }
-        private async Task AddAnalyzedAudioToDb(string audioName, string guid)
+
+        public IEnumerable<AudioDetails> GetAll() => audioRepository.GetAll();
+
+        private async Task AddAnalyzedAudioToDb(string audioName, string guid, string storageName)
         {
             queue.QueueBackgroundWorkItem(async token =>
             {
                 var serviceScopeFactory = provider.GetRequiredService<IServiceScopeFactory>();
                 using (var scope = serviceScopeFactory.CreateScope())
                 {
-                    var Dbcontext = await ProvideAudioRepository(scope);
-                    var analysis = await Analyze(await GetStorageURL(guid + audioName));
-                    var audioEntity = await GenerateAudioEntity(analysis, audioName, guid);
+                    var Dbcontext = ProvideAudioRepository(scope);
+                    var analysis = await Analyze(await GetStorageURL(storageName));
+                    var audioEntity = GenerateAudioEntity(analysis, audioName, guid);
                     await Dbcontext.Add(audioEntity);
                     await Dbcontext.SaveChanges();
                 }
             });
         }
-        private async Task<IAudioRepository> ProvideAudioRepository(IServiceScope scope)
-        {
-            return scope.ServiceProvider.GetService<IAudioRepository>();
-        }
-        private async Task<Audio> GenerateAudioEntity (AudioAnalysis audioAnalysis, string audioName, string guid)
+
+        private IAudioRepository ProvideAudioRepository(IServiceScope scope) => scope.ServiceProvider.GetService<IAudioRepository>();
+
+        private Audio GenerateAudioEntity(AudioAnalysis audioAnalysis, string audioName, string guid)
         {
             var audio = new Audio();
             audio.Id = guid;
             audio.Name = audioName;
             audio.Key = audioAnalysis.Key;
             audio.Bpm = audioAnalysis.Tempo;
-            audio.ChordUnits = await CreateChordUnitCollection(audioAnalysis.Chords);
+            audio.ChordUnits = audioAnalysis.Chords.Select(c => new ChordUnit { Time = c.Key, Chord = c.Value }).OrderBy(c => c.Time).ToList();
             return audio;
         }
-        private async Task<string> GetStorageURL(string audioName)
-        {
-            return await fileStorage.GenerateURL(audioName);
-        }
-        private async Task<AudioAnalysis> Analyze (string audioURL)
-        {
-            return await audioAnalyzer.Analyze(audioURL);
-        }
-        private async Task<ICollection<ChordUnit>> CreateChordUnitCollection (IDictionary<double, string> chords)
-        {
-            var chordCollection = new List<ChordUnit>();
 
-            foreach (KeyValuePair<double, string> pair in chords)
-            {
-                chordCollection.Add(new ChordUnit { Time = pair.Key, Chord = pair.Value });
-            }
+        private async Task<string> GetStorageURL(string storageName) => await fileStorage.GenerateURL(storageName);
 
-            return chordCollection.OrderBy(c=> c.Time).ToList();
-        }
-        private string GenerateGuid()
-        {
-            var guid = Guid.NewGuid().ToString();
-            return guid;
-        }
+        private async Task<AudioAnalysis> Analyze(string audioURL) => await audioAnalyzer.Analyze(audioURL);
+
+        private string GenerateGuid() => Guid.NewGuid().ToString();
     }
 }

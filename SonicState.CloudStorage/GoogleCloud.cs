@@ -28,10 +28,10 @@ namespace SonicState.CloudStorage
             storageClient.UploadObject(bucketName, fileName, null, fileStream);
             MakePublic(bucketName, fileName);
         }
-        public async Task Upload(IFormFile file, string guid)
+        public async Task Upload(IFormFile file, string storageName)
         {
-            await storageClient.UploadObjectAsync(bucketName,guid + file.FileName , null, file.OpenReadStream());
-            MakePublic(bucketName, guid + file.FileName);
+            await storageClient.UploadObjectAsync(bucketName, storageName, null, file.OpenReadStream());
+            MakePublic(bucketName, storageName);
         }
         public async Task<string> GenerateURL(string objectName)
         {
@@ -50,6 +50,6 @@ namespace SonicState.CloudStorage
             Console.WriteLine(objectName + " is now public and can be fetched from " +
                 storageObject.MediaLink);
         }
-   
+
     }
 }

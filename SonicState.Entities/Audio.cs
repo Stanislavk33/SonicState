@@ -16,6 +16,6 @@ namespace SonicState.Entities
         public double Bpm { get; set; }
         public string Key { get; set; }
         public virtual ICollection<ChordUnit> ChordUnits { get; set; }
-        public string StorageName => Id + Name; 
+        //public string StorageName => Id + Name; 
     }
 }

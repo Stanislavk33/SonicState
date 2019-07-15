@@ -1,10 +1,7 @@
 ﻿using SonicState.Contracts.Repositories;
 using SonicState.Contracts.Services;
 using SonicState.Models.ViewModels;
-using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SonicState.Services
 {
@@ -21,6 +18,5 @@ namespace SonicState.Services
         {
             return chordUnitRepository.GenerateChordSequence(audioId);
         }
-
     }
 }
