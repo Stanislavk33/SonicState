@@ -8,9 +8,7 @@ namespace SonicState.Entities
     {
         public ChordUnit()
         {
-            
         }
-
         public double Time { get; set; }
 
         public string Chord { get; set; }

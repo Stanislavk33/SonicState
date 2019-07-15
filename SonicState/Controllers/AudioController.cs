@@ -12,10 +12,14 @@ namespace SonicState.Web.Controllers
     {
         //public readonly FileStorage fileStorage;
         public readonly IAudioService audioService;
+        public readonly IChordService chordService;
 
-        public AudioController (IAudioService audioService) : base()
+
+        public AudioController 
+            (IAudioService audioService, IChordService chordService) : base()
         {
             this.audioService = audioService;
+            this.chordService = chordService;
         }
 
         [HttpPost]
@@ -28,6 +32,11 @@ namespace SonicState.Web.Controllers
         public IEnumerable<AudioDetails> List()
         {
             return audioService.GetAll();
+        }
+        
+        public ICollection<ChordUnitDetails> SongTutorial(string id)
+        {
+            return chordService.GetChordSequence(id);
         }
     }
 }

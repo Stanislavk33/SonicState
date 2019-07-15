@@ -6,6 +6,7 @@ using SonicState.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace SonicState.Repositories
 {
@@ -20,6 +21,5 @@ namespace SonicState.Repositories
         {
             return set.Select(this.mapper.Map<AudioDetails>);
         }
-        
     }
 }

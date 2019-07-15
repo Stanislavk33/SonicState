@@ -1,12 +1,14 @@
 ﻿using SonicState.Entities;
 using SonicState.Models.ViewModels;
+using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace SonicState.Contracts.Repositories
 {
-    public interface IAudioRepository : IRepository<Audio>
+    public interface IChordUnitRepository : IRepository<ChordUnit>
     {
-        IEnumerable<AudioDetails> GetAll();
+        ICollection<ChordUnitDetails> GenerateChordSequence(string audioId);
     }
 }

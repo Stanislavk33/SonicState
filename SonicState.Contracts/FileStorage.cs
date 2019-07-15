@@ -5,7 +5,7 @@ namespace SonicState.Contracts
 {
     public interface FileStorage
     {
-        Task Upload(IFormFile file, string guid);
+        Task Upload(IFormFile file, string storageName);
 
         Task<string> GenerateURL(string objectName);
     }

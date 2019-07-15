@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using SonicState.Contracts.Repositories;
+using SonicState.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -29,10 +30,9 @@ namespace SonicState.Data
 
         public IEnumerable<TEntity> All()
         {
-
             return this.set;
         }
-
+     
         public void Delete(TEntity entity)
         {
             this.set.Remove(entity);

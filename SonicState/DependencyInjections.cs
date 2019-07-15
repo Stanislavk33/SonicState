@@ -23,6 +23,8 @@ namespace SonicState.Web
             services.AddScoped<AudioAnalyzer, SonicAnalyzer>();
             services.AddHostedService<QueuedHostedService>();
             services.AddSingleton<IBackgroundTaskQueue, BackgroundTaskQueue>();
+            services.AddTransient<IChordUnitRepository, ChordUnitRepository>();
+            services.AddScoped<IChordService, ChordService>();
             services.AddAutoMapper();
 
         }
