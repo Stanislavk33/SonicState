@@ -8,4 +8,8 @@
     <Folder Include="BindingModels\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SonicState.Entities\SonicState.Entities.csproj" />
+  </ItemGroup>
+
 </Project>
