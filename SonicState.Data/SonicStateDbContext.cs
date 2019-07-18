@@ -16,6 +16,10 @@ namespace SonicState.Data
 
         public DbSet<ChordUnit> ChordSequences { get; set; }
 
+        public DbSet<User> Users { get; set; }
+
+        public DbSet<Playlist> Playlists { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder builder)
         {
             base.OnConfiguring(builder);

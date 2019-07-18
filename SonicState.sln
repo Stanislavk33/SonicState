@@ -21,7 +21,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SonicState.Repositories", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SonicState.Contracts", "SonicState.Contracts\SonicState.Contracts.csproj", "{F0CDAD53-CFB0-49C1-9527-2BBA29DA961C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SonicState.BackgroundServices", "SonicState.BackgroundService\SonicState.BackgroundServices.csproj", "{C2B4C07D-CC6F-4E4C-A54F-56D8535BF1A1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SonicState.BackgroundServices", "SonicState.BackgroundService\SonicState.BackgroundServices.csproj", "{C2B4C07D-CC6F-4E4C-A54F-56D8535BF1A1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SonicState.Authentication", "SonicState.Authentication\SonicState.Authentication.csproj", "{6C640BCF-5F3C-4F0E-A5E8-50BA97549478}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,6 +71,10 @@ Global
 		{C2B4C07D-CC6F-4E4C-A54F-56D8535BF1A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C2B4C07D-CC6F-4E4C-A54F-56D8535BF1A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C2B4C07D-CC6F-4E4C-A54F-56D8535BF1A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C640BCF-5F3C-4F0E-A5E8-50BA97549478}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C640BCF-5F3C-4F0E-A5E8-50BA97549478}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C640BCF-5F3C-4F0E-A5E8-50BA97549478}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C640BCF-5F3C-4F0E-A5E8-50BA97549478}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

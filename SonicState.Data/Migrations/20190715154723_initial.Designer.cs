@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SonicState.Data;
 
 namespace SonicState.Data.Migrations
 {
     [DbContext(typeof(SonicStateDbContext))]
-    partial class SonicStateDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190715154723_initial")]
+    partial class initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -113,8 +115,6 @@ namespace SonicState.Data.Migrations
 
                     b.Property<string>("Password")
                         .IsRequired();
-
-                    b.Property<string>("Token");
 
                     b.HasKey("Id");
 
