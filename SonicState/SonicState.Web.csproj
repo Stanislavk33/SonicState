@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="8.4.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.4" />
@@ -20,6 +21,7 @@
     <ProjectReference Include="..\SonicState.Models\SonicState.Models.csproj" />
     <ProjectReference Include="..\SonicState.Services\SonicState.Services.csproj" />
     <ProjectReference Include="..\SonicState.SonicAPI\SonicState.SonicAPI.csproj" />
+    <ProjectReference Include="..\SonicState.Validations\SonicState.Validations.csproj" />
   </ItemGroup>
 
   <ItemGroup>

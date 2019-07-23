@@ -8,9 +8,12 @@ using SonicState.CloudStorage;
 using SonicState.Contracts;
 using SonicState.Contracts.Repositories;
 using SonicState.Contracts.Services;
+using SonicState.Contracts.Services.ValidationServices;
 using SonicState.Repositories;
 using SonicState.Services;
 using SonicState.SonicAPI;
+using SonicState.Validations.ValidationRules;
+using SonicState.Validations.ValidationServices;
 
 namespace SonicState.Web
 {
@@ -31,6 +34,8 @@ namespace SonicState.Web
             services.AddScoped<IPasswordService, PasswordService>();
             services.AddScoped<AuthenticateService, TokenAuthenticationService>();
             services.AddScoped(typeof(TokenManagement));
+            services.AddScoped<IRegisterUserValidationService, RegisterUserValidationService>();
+            services.AddScoped(typeof(RegisterUserValidationRules));
             services.AddAutoMapper();
 
         }
