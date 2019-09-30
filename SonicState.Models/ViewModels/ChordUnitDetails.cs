@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SonicState.Models.ViewModels
-{
+namespace SonicState.Models.ViewModels { 
+
     public class ChordUnitDetails
     {
         public double Time { get; set; }

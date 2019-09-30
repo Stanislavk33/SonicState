@@ -9,5 +9,6 @@ namespace SonicState.Contracts.Services
     public interface IUserService
     {
         Task Add(RegisterUser user);
+        bool ValidateUserData(LoginUser user);
     }
 }

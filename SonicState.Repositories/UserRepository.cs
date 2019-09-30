@@ -32,6 +32,10 @@ namespace SonicState.Repositories
 
         }
 
+        public string GetPasswordHash(string userEmail)
+        {
+            return this.set.FirstOrDefault(u => u.Email == userEmail).Password;
+        }
         //public bool IsEmailUnique(string userEmail)
         //{
         //    if (this.set.Any(u => u.Email == userEmail){

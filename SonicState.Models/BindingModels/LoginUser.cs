@@ -9,7 +9,7 @@ namespace SonicState.Models.BindingModels
     public class LoginUser
     {
         [Required]
-        [JsonProperty("email")]
+      [JsonProperty("email")]
         public string Email { get; set; }
 
 

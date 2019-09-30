@@ -10,5 +10,7 @@ namespace SonicState.Contracts
          Task Add(RegisterUser user);
 
          bool Exists(string userEmail);
+
+        string GetPasswordHash(string userEmail);
     }
 }

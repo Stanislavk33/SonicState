@@ -36,6 +36,8 @@ namespace SonicState.Web
             services.AddScoped(typeof(TokenManagement));
             services.AddScoped<IRegisterUserValidationService, RegisterUserValidationService>();
             services.AddScoped(typeof(RegisterUserValidationRules));
+            services.AddScoped<ILoginUserValidationService, LoginUserValidationService>();
+            services.AddScoped(typeof(LoginUserValidationRules));
             services.AddAutoMapper();
 
         }

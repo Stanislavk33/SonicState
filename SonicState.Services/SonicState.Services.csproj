@@ -13,6 +13,7 @@
     <ProjectReference Include="..\SonicState.Models\SonicState.Models.csproj" />
     <ProjectReference Include="..\SonicState.Repositories\SonicState.Repositories.csproj" />
     <ProjectReference Include="..\SonicState.SonicAPI\SonicState.SonicAPI.csproj" />
+    <ProjectReference Include="..\SonicState.Validations\SonicState.Validations.csproj" />
   </ItemGroup>
 
   <ItemGroup>

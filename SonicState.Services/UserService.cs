@@ -1,4 +1,5 @@
-﻿using SonicState.Contracts;
+﻿using FluentValidation;
+using SonicState.Contracts;
 using SonicState.Contracts.Services;
 using SonicState.Contracts.Services.ValidationServices;
 using SonicState.Models.BindingModels;
@@ -11,13 +12,15 @@ namespace SonicState.Services
         private readonly IUserRepository userRepository;
         private readonly IPasswordService passwordService;
         private readonly IRegisterUserValidationService registerUserValidationService;
+        private readonly ILoginUserValidationService loginUserValidationService;
 
         public UserService
-            (IUserRepository userRepository, IPasswordService passwordService, IRegisterUserValidationService registerUserValidationService)
+            (IUserRepository userRepository, IPasswordService passwordService, IRegisterUserValidationService registerUserValidationService, ILoginUserValidationService loginUserValidationService)
         {
             this.passwordService = passwordService;
             this.userRepository = userRepository;
             this.registerUserValidationService = registerUserValidationService;
+            this.loginUserValidationService = loginUserValidationService;
         }
         public Task Add(RegisterUser user)
         {
@@ -26,6 +29,18 @@ namespace SonicState.Services
            return userRepository.Add(user);
         }
 
-        
+        public bool ValidateUserData(LoginUser user)
+        {
+            try
+            {
+                loginUserValidationService.Validate(user);
+                return true;
+            }
+            catch (ValidationException ex)
+            {
+            
+                return false;
+            }
+        }
     }
 }

@@ -24,7 +24,9 @@ namespace SonicState.Authentication
         public bool IsAuthenticated(LoginUser user, out string token)
         {
             token = string.Empty;
-            if (!userRepository.Exists(user.Email)) return false;
+
+            //try(LoginuserValidationService.validate(user)){
+           // if (!userRepository.Exists(user.Email)) return false;
 
             var claim = new[]
             {
@@ -32,7 +34,6 @@ namespace SonicState.Authentication
             };
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenManagement.Secret));
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
             var jwtToken = new JwtSecurityToken(
                 tokenManagement.Issuer,
                 tokenManagement.Audience,
@@ -43,6 +44,7 @@ namespace SonicState.Authentication
 
             token = new JwtSecurityTokenHandler().WriteToken(jwtToken);
             return true;
+            //}
         }
     }
 }
