@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -18,6 +19,7 @@ namespace SonicState.Repositories
 
         public ICollection<ChordUnitDetails> GenerateChordSequence(string audioId)
         {
+            if(string.IsNullOrEmpty(audioId)) { throw new ArgumentNullException(); }
             return this.set.Where(c => c.AudioId == audioId).Select(this.mapper.Map<ChordUnitDetails>).OrderBy(c=> c.Time).ToList();
         }
     }
