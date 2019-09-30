@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -30,6 +31,7 @@ namespace SonicState
             services.AddDbConnection(Configuration["ConnectionStrings:SonicStateDB"]);
             services.AddMvc().AddJsonOptions(options => options.SerializerSettings.ReferenceLoopHandling =ReferenceLoopHandling.Ignore);
             services.Configure<TokenManagement>(Configuration.GetSection("TokenManagement"));
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             var token = Configuration.GetSection("tokenManagement").Get<TokenManagement>();
             var secret = Encoding.ASCII.GetBytes(token.Secret);
 

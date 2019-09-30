@@ -21,16 +21,15 @@ namespace SonicState.Authentication
             this.userRepository = userRepository;
             this.tokenManagement = tokenManagement.Value;
         }
-        public bool IsAuthenticated(LoginUser user, out string token)
+        public string Authenticate(LoginUser user)
         {
-            token = string.Empty;
-
             //try(LoginuserValidationService.validate(user)){
-           // if (!userRepository.Exists(user.Email)) return false;
-
+            // if (!userRepository.Exists(user.Email)) return false;
+            var userDetails = this.userRepository.Get(user.Email);
             var claim = new[]
             {
-                new Claim(ClaimTypes.Email, user.Email)
+                new Claim(ClaimTypes.Email, user.Email),
+                new Claim(ClaimTypes.NameIdentifier, userDetails.Id.ToString())
             };
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenManagement.Secret));
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
@@ -42,9 +41,9 @@ namespace SonicState.Authentication
                 signingCredentials: credentials
             );
 
-            token = new JwtSecurityTokenHandler().WriteToken(jwtToken);
-            return true;
-            //}
+           var token = new JwtSecurityTokenHandler().WriteToken(jwtToken);
+            return token;
+            
         }
     }
 }

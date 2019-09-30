@@ -3,6 +3,7 @@ using SonicState.Contracts;
 using SonicState.Data;
 using SonicState.Entities;
 using SonicState.Models.BindingModels;
+using SonicState.Models.ViewModels;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -30,6 +31,13 @@ namespace SonicState.Repositories
             }
             else { return false; }
 
+        }
+
+        public UserDetails Get(string email)
+        {
+            var user = this.set.FirstOrDefault(u => u.Email == email);
+
+           return this.mapper.Map<UserDetails>(user);
         }
 
         public string GetPasswordHash(string userEmail)

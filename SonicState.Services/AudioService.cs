@@ -20,15 +20,22 @@ namespace SonicState.Services
         private readonly FileStorage fileStorage;
         private readonly IServiceProvider provider;
         private readonly IBackgroundTaskQueue queue;
+        private readonly IClaimAccessor currentUser;
 
-        public AudioService
-            (IAudioRepository audioRepository, AudioAnalyzer audioAnalyzer, FileStorage fileStorage, IServiceProvider provider, IBackgroundTaskQueue queue)
+        public AudioService(
+            IAudioRepository audioRepository,
+            AudioAnalyzer audioAnalyzer, 
+            FileStorage fileStorage,
+            IServiceProvider provider,
+            IBackgroundTaskQueue queue,
+            IClaimAccessor currentUser)
         {
             this.audioRepository = audioRepository;
             this.audioAnalyzer = audioAnalyzer;
             this.fileStorage = fileStorage;
             this.queue = queue;
             this.provider = provider;
+            this.currentUser = currentUser;
         }
 
         public async Task AddAsync(IFormFile audio)
@@ -67,6 +74,7 @@ namespace SonicState.Services
             audio.Name = audioName;
             audio.Key = audioAnalysis.Key;
             audio.Bpm = audioAnalysis.Tempo;
+            audio.UserId = currentUser.Id;
             audio.ChordUnits = audioAnalysis.Chords.Select(c => new ChordUnit { Time = c.Key, Chord = c.Value }).OrderBy(c => c.Time).ToList();
             return audio;
         }

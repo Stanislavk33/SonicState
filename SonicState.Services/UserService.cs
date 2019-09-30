@@ -29,6 +29,8 @@ namespace SonicState.Services
            return userRepository.Add(user);
         }
 
+
+
         public bool ValidateUserData(LoginUser user)
         {
             try

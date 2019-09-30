@@ -36,7 +36,6 @@ namespace SonicState.SonicAPI
             return await GenerateAudioModel(key.Result, tempo.Result, chords.Result);
         }
 
-        
         private async Task<AudioAnalysis> GenerateAudioModel (string key, double tempo, IDictionary<double, string> chords)
         {
             var audioModel = new AudioAnalysis();

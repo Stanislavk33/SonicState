@@ -29,7 +29,7 @@ namespace SonicState.Web.Controllers
 
             string token;
 
-            if (authenticateService.IsAuthenticated(user, out token))
+            if (authenticateService.Authenticate(user, out token))
             {
                 return Ok(token);
             }

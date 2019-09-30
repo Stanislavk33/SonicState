@@ -38,6 +38,7 @@ namespace SonicState.Web
             services.AddScoped(typeof(RegisterUserValidationRules));
             services.AddScoped<ILoginUserValidationService, LoginUserValidationService>();
             services.AddScoped(typeof(LoginUserValidationRules));
+            services.AddScoped<IClaimAccessor, ClaimAccessor>();
             services.AddAutoMapper();
 
         }

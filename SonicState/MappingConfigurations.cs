@@ -15,6 +15,7 @@ namespace SonicState.Web
             CreateMap<ChordUnit, ChordUnitDetails>();
             CreateMap<RegisterUser, User>();
             CreateMap<LoginUser, User>();
+            CreateMap<User, UserDetails>();
            
 
 

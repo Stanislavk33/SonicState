@@ -30,8 +30,7 @@ namespace SonicState.Web.Controllers
         public ActionResult Login([FromBody] LoginUser user)
         {
             if(userService.ValidateUserData(user)){
-                string token;
-                authenticateService.IsAuthenticated(user, out token);
+               var token = authenticateService.Authenticate(user);
                 return Ok(token);
             }
             else
