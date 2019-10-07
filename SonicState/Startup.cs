@@ -54,7 +54,7 @@ namespace SonicState
                 };
             });
 
-           var ValidationParameters = new TokenValidationParameters
+            var ValidationParameters = new TokenValidationParameters
             {
                 ValidateIssuerSigningKey = true,
                 IssuerSigningKey = new SymmetricSecurityKey(secret),

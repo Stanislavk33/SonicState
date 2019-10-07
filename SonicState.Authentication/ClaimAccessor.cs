@@ -14,7 +14,7 @@ namespace SonicState.Authentication
             this.claims = http.HttpContext.User;
         }
 
-        public string Id => FindClaim(JwtRegisteredClaimNames.Sub);
+        public int Id => int.Parse(FindClaim(ClaimTypes.NameIdentifier));
         //public string Email => FindClaim(JwtRegisteredClaimNames.Email);
         public bool IsAuthenticated => this.claims.Identity.IsAuthenticated;
         private string FindClaim(string type) => this.claims.FindFirstValue(type);

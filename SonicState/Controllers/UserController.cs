@@ -27,15 +27,15 @@ namespace SonicState.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login([FromBody] LoginUser user)
+        public string Login([FromBody] LoginUser user)
         {
             if(userService.ValidateUserData(user)){
                var token = authenticateService.Authenticate(user);
-                return Ok(token);
+               return token;
             }
             else
             {
-                return BadRequest("Invalid Request");
+                return null;
             }
         }
     }

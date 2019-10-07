@@ -18,23 +18,23 @@ namespace SonicState.Web.Controllers
         }
 
 
-        [AllowAnonymous]
-        [HttpPost("requesttoken")]
-        public ActionResult RequestToken([FromBody] LoginUser user) 
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest("Invalid Request");
-            }
+        //[AllowAnonymous]
+        //[HttpPost("requesttoken")]
+        //public ActionResult RequestToken([FromBody] LoginUser user) 
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest("Invalid Request");
+        //    }
 
-            string token;
+        //    string token;
 
-            if (authenticateService.Authenticate(user, out token))
-            {
-                return Ok(token);
-            }
+        //    if (authenticateService.Authenticate(user))
+        //    {
+        //        return Ok(token);
+        //    }
 
-            return BadRequest("Invalid Request");
-        }
+        //    return BadRequest("Invalid Request");
+       // }
         }
 }
