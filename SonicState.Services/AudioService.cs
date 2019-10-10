@@ -44,6 +44,9 @@ namespace SonicState.Services
             var storageName = guid + audio.FileName;
 
             await fileStorage.Upload(audio, storageName);
+            var audioEntity = GenerateAudioEntity(audio.FileName, guid);
+            await audioRepository.Add(audioEntity);
+            await audioRepository.SaveChanges();
             AddAnalyzedAudioToDb(audio.FileName, guid, storageName);
         }
 
@@ -58,8 +61,8 @@ namespace SonicState.Services
                 {
                     var Dbcontext = ProvideAudioRepository(scope);
                     var analysis = await Analyze(await GetStorageURL(storageName));
-                    var audioEntity = GenerateAudioEntity(analysis, audioName, guid);
-                    await Dbcontext.Add(audioEntity);
+                    var audioEntity = (GenerateAudioEntity(analysis, guid, Dbcontext));
+                    Dbcontext.Update(audioEntity);
                     await Dbcontext.SaveChanges();
                 }
             });
@@ -67,15 +70,21 @@ namespace SonicState.Services
 
         private IAudioRepository ProvideAudioRepository(IServiceScope scope) => scope.ServiceProvider.GetService<IAudioRepository>();
 
-        private Audio GenerateAudioEntity(AudioAnalysis audioAnalysis, string audioName, string guid)
+        private Audio GenerateAudioEntity(AudioAnalysis audioAnalysis, string guid, IAudioRepository DbContext)
+        {
+            var audio = DbContext.Find(guid);
+            audio.Key = audioAnalysis.Key;
+            audio.Bpm = audioAnalysis.Tempo;
+            audio.ChordUnits = audioAnalysis.Chords.Select(c => new ChordUnit { Time = c.Key, Chord = c.Value }).OrderBy(c => c.Time).ToList();
+            return audio;
+        }
+
+        private Audio GenerateAudioEntity(string audioName, string guid)
         {
             var audio = new Audio();
             audio.Id = guid;
             audio.Name = audioName;
-            audio.Key = audioAnalysis.Key;
-            audio.Bpm = audioAnalysis.Tempo;
             audio.UserId = currentUser.Id;
-            audio.ChordUnits = audioAnalysis.Chords.Select(c => new ChordUnit { Time = c.Key, Chord = c.Value }).OrderBy(c => c.Time).ToList();
             return audio;
         }
 

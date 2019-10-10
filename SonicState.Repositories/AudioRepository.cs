@@ -17,6 +17,16 @@ namespace SonicState.Repositories
 
         }
 
+        public Audio Find(string audioId)
+        {
+            return this.set.Find(audioId);
+        }
+
+        public void Update(Audio audio)
+        {
+            this.set.Update(audio);
+        }
+
         public IEnumerable<AudioDetails> GetAll()
         {
             return set.Select(this.mapper.Map<AudioDetails>);

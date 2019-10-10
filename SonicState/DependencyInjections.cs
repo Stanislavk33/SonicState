@@ -23,7 +23,8 @@ namespace SonicState.Web
         {
             services.AddTransient<IAudioRepository, AudioRepository>();
             services.AddScoped<IAudioService, AudioService>();
-            services.AddScoped<FileStorage, GoogleCloud>();
+           // services.AddScoped<FileStorage, GoogleCloud>();
+            services.AddScoped<FileStorage, CloudinaryStorage>();
             services.AddScoped<AudioAnalyzer, SonicAnalyzer>();
             services.AddHostedService<QueuedHostedService>();
             services.AddSingleton<IBackgroundTaskQueue, BackgroundTaskQueue>();

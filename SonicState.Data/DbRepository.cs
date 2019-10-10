@@ -27,7 +27,6 @@ namespace SonicState.Data
         {
             return this.set.AddAsync(entity);
         }
-
         public IEnumerable<TEntity> All()
         {
             return this.set;

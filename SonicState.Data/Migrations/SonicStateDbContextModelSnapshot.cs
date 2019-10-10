@@ -28,7 +28,7 @@ namespace SonicState.Data.Migrations
 
                     b.Property<string>("Key");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("FileName")
                         .IsRequired();
 
                     b.Property<int>("UserId");
@@ -67,7 +67,7 @@ namespace SonicState.Data.Migrations
 
                     b.Property<DateTime>("DateCreated");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("FileName")
                         .IsRequired();
 
                     b.Property<int>("UserId");

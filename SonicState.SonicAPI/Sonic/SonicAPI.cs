@@ -5,7 +5,7 @@ namespace SonicState.SonicAPI
 {
     internal abstract class SonicApi
     {
-        private readonly string _urlFormat = "https://api.sonicapi.com/{0}?access_id=e9af255b-b160-4eef-921a-943899dc7687&input_file={1}&format=json";
+        private readonly string _urlFormat = "https://api.sonicapi.com/{0}?access_id=e7c7a495-1537-484b-b773-f1345837fc4f&input_file={1}&format=json";
         	
         protected T Analyze<T>(string action, string fileUrl)
         {

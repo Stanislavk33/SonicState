@@ -9,8 +9,10 @@ namespace SonicState.Web
     {
         public MappingConfiguration()
         {
-            //TODO  Fix Audio-AudioDetails mapping
-            CreateMap<Audio, AudioDetails>();
+
+            CreateMap<Audio, AudioDetails>()
+            .ForMember(ad => ad.FileName, src => src.MapFrom(a => a.Name));
+
             CreateMap<AudioDetails, Audio>();
             CreateMap<ChordUnit, ChordUnitDetails>();
             CreateMap<RegisterUser, User>();
